@@ -40,7 +40,7 @@ void setup() {
   cmdbuff[1] = 0x02;                        // I2C address of protoboard
 
   for(int i = 0; i < 5; i++) {
-    sendI2CMsg(PROTO_PORT, cmdbuff[0], 0);  // Send command to protoboard
+    sendI2CMsg(PROTO_PORT, &cmdbuff[0], 0);  // Send command to protoboard
     wait1Msec(5);
   }
 }
@@ -50,9 +50,9 @@ void readdata() {
   cmdbuff[1] = 0x02;                        // I2C address of protoboard
   cmdbuff[2] = 0x4C;                        // Set read address to A0
 
-  sendI2CMsg(PROTO_PORT, cmdbuff[0], 1);    // Send command to protoboard
+  sendI2CMsg(PROTO_PORT, &cmdbuff[0], 1);    // Send command to protoboard
   wait1Msec(10);                            // Wait for response
-  readI2CReply(PROTO_PORT, respbuff[0], 1); // Read the response
+  readI2CReply(PROTO_PORT, &respbuff[0], 1); // Read the response
 
   inputdata = ubyteToInt(respbuff[0]) & 0x03;
 }
@@ -64,7 +64,7 @@ void writedata() {
   cmdbuff[2] = 0x4D;                        // Set write address to B outputs
   cmdbuff[3] = outputdata;                  // The data to be written
 
-  sendI2CMsg(PROTO_PORT, cmdbuff[0], 0);    // Send command to protoboard
+  sendI2CMsg(PROTO_PORT, &cmdbuff[0], 0);    // Send command to protoboard
   wait1Msec(5);
 }
 
@@ -77,7 +77,7 @@ task main() {
   cmdbuff[3] = 0x30;                        // The data to be written
                                             // 0x30 = 110000 binary
 
-  sendI2CMsg(PROTO_PORT, cmdbuff[0], 0);    // Send command to protoboard
+  sendI2CMsg(PROTO_PORT, &cmdbuff[0], 0);    // Send command to protoboard
   wait1Msec(5);
 
   while(true) {
