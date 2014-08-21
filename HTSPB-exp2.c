@@ -18,7 +18,7 @@ task main() {
   int bit;
 
   // Set B0 as output
-  HTSPBsetupIO(HTSPB, 0x1);
+  HTSPBsetupIO(HTSPB, 0x3F);
 
   while(true) {
     // Read a 10bit wide analogue value from A0
